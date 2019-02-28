@@ -44,10 +44,10 @@ async def setup_learner():
         else:
             raise
 
-loop = asyncio.get_event_loop()
-tasks = [asyncio.ensure_future(setup_learner())]
-learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
-loop.close()
+#loop = asyncio.get_event_loop()
+#tasks = [asyncio.ensure_future(setup_learner())]
+#learn = loop.run_until_complete(asyncio.gather(*tasks))[0]
+#loop.close()
 
 @app.route('/')
 def hello():
@@ -63,7 +63,7 @@ def predict():
         response = requests.get(url)
 
         img_class = open_image(BytesIO(response.content))
-        pred_class,pred_idx,outputs = learn.predict(img_class)
+        #pred_class,pred_idx,outputs = learn.predict(img_class)
 
     return render_template('predict.html', url = url, boat_type = pred_class)
 
