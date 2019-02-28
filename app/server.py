@@ -54,13 +54,13 @@ def hello():
     return 'Boat Classifier'
 
 @app.route('/predict', methods=['GET'])
-async def predict():
+def predict():
     url = ''
     pred_class = ''
 
     if (request.args):
         url = request.args['url']
-        response = await requests.get(url)
+        response = requests.get(url)
 
         img_class = open_image(BytesIO(response.content))
         pred_class,pred_idx,outputs = learn.predict(img_class)
