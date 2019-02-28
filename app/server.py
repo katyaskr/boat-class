@@ -16,7 +16,7 @@ app = Flask(__name__)
 export_file_url = 'https://drive.google.com/uc?export=download&id=1kSUp-9Q2f6fUPx4133sKmq2_jp0Ft1bj'
 export_file_name = 'export.pkl'
 #model_file_name = 'stage-2-50'
-path = Path ('.')
+path = Path(__file__).parent
 
 # load export.pkl
 #learn = load_learner(path)
@@ -54,13 +54,13 @@ def hello():
     return 'Boat Classifier'
 
 @app.route('/predict', methods=['GET'])
-def predict():
+async def predict():
     url = ''
     pred_class = ''
 
     if (request.args):
         url = request.args['url']
-        response = requests.get(url)
+        response = await requests.get(url)
 
         img_class = open_image(BytesIO(response.content))
         pred_class,pred_idx,outputs = learn.predict(img_class)
